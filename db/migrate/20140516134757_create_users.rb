@@ -11,22 +11,22 @@ class CreateUsers < ActiveRecord::Migration
     end
 
     create_table :rounds do |t|
-      t.belongs_to :users
-      t.belongs_to :deck
+      t.integer :user_id
+      t.integer :deck_id
       t.timestamps
     end
 
     create_table :cards do |t|
       t.string :question, :answer
-      t.belongs_to :deck
+      t.integer :deck_id
       t.timestamps
     end
 
     create_table :guesses do |t|
       t.string :user_input
       t.integer :correctness
-      t.belongs_to :round
-      t.belongs_to :card
+      t.integer :round_id
+      t.integer :card_id
       t.timestamps
     end
   end

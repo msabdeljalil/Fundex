@@ -1,0 +1,7 @@
+<% @cards.each |card| %>
+  <%= card.question %>
+  <form method = "post" action = "/deck/<%= @deck.id %>/cards/<%= card.id %>">
+    <input type = "text" value = "Answer">
+    <input type = "submit" value = "Submit">
+  </form>
+<% end %>
