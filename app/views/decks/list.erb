@@ -1,0 +1,5 @@
+<h2> Here's the decks you can play: </h2>
+
+<%Deck.all.each do |deck| %>
+  <p> <a href="/decks/<%=deck.id%>"> <%=deck.name%> </a> <p>
+<%end%>
