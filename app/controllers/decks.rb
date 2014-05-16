@@ -1,3 +1,0 @@
-get '/decks' do
-
-end
