@@ -1,3 +1,10 @@
+before '/decks/*' do
+  unless session[:user_id]
+    @errors = "You need to be logged in to view that!"
+    request.path_info = '/sessions/new'
+  end
+end
+
 get '/decks' do
   erb :"decks/list"
 end

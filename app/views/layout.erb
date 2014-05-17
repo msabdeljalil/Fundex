@@ -10,23 +10,25 @@
   <title>Fundex!</title>
 </head>
 <body>
-  <%if session[:user_id]%>
-  <!-- Having a link next to a button looked weird, so this became a button too -->
-  <form action="/rounds" method="get">
-    <input type="submit" name="rounds" value="View Previous Rounds">
-  </form>
-  <!-- Sends an immediate delete request -->
-  <form action="/sessions" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" name="logout" value="Logout">
-  </form>
-
-  <%else%>
-    <a href="/sessions/new">Login</a>
-
-  <%end%>
+  <header>
+    <%if session[:user_id]%>
+      <!-- Having a link next to a button looked weird, so this became a button too -->
+      <form action="/rounds" method="get">
+        <input type="submit" name="rounds" value="View Previous Rounds">
+      </form>
+      <!-- Sends an immediate delete request -->
+      <form action="/sessions" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="logout" value="Logout">
+      </form>
+    <%else%>
+      <a href="/sessions/new">Login</a>
+      <a href="/users/new">Sign Up</a>
+    <%end%>
+  </header>
 
   <div class="container">
+    <h1><a href="/">FUNDEX</a></h1>
     <%= yield %>
   </div>
 </body>
