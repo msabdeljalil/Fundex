@@ -1,0 +1,5 @@
+<% if @percent_score.to_i < 0.5 %>
+  <p>You scored <%= @percent_score %>! DISGRACEFUL !!!</p>
+<% else %>
+  <p>You scored <%= @percent_score %>! WELL DONE SIR !!!</p>
+<% end %>
