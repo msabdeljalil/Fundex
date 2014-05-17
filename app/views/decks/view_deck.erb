@@ -1,4 +1,7 @@
-<%= @deck.id %>. <%= @deck.name %>
-<%= @deck.cards.first.question %>
-<a href="/decks/<%@deck.id%>/cards/1">Play this deck!!</a>
+<h1>Would ypu like to play this deck?</h1>
+<h2>Here's an example question: </h2>
+<h2><%= @deck.name %> </h2>
+<p> <%= @deck.cards.first.question %> </p>
+<br>
+<a href="/decks/<%=@deck.id%>/cards/1">Play this deck!!</a> <br>
 <a href="/decks">No! Go back!</a>
