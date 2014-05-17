@@ -1,5 +1,3 @@
-<% if @percent_score.to_i < 0.5 %>
-  <p>You scored <%= @percent_score %>! DISGRACEFUL !!!</p>
-<% else %>
-  <p>You scored <%= @percent_score %>! WELL DONE SIR !!!</p>
-<% end %>
+<h3>Correct Answers: <%=@correct_answers%></h3>
+<h3>Total Guesses: <%=@total_guesses%></h3>
+<h3>Percent Score: <%=@percent_score%>%</h3>

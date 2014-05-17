@@ -1,5 +1,5 @@
 <%= @card.question %>
-  <form method="post" action="/decks/<%= @card.deck.id %>/cards/<%= @card.id %>">
-    <label>Answer: <input type="text" name="answer"></label><br>
-    <input type="submit" value="Submit">
-  </form><br>
+<form method="post" action="/decks/<%= @card.deck.id %>/cards/<%= @card.id %>">
+  <label>Answer: <input type="text" name="answer"></label><br>
+  <input type="submit" value="Submit">
+</form><br>

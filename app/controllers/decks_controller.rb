@@ -24,14 +24,13 @@ end
 post '/decks/:deck_id/cards/:card_id' do
   @deck = Deck.find_by_id(params[:deck_id])
   @card = Card.find_by_id(params[:card_id])
-  @round = Round.create(deck_id: params[:deck_id], user_id: session[:user_id])
+  @round = Round.find_by_id(session[:round_id])
   check_answer(params[:answer],  @card)
   if deck_complete?(params[:card_id], @deck)
-    @correct_answers = @round.guesses.where(correctness: 1).count.to_f
-    @total_guesses = @round.guesses.count.to_f
-    @percent_score = (@correct_answers / @total_questions)
-    redirect "/rounds/#{session[:round_id]}"
-    session.delete(:round_id)
+    @correct_answers = @round.guesses.where(correctness: 1).count
+    @total_guesses = @round.guesses.count
+    @percent_score = @correct_answers.to_f / @total_guesses.to_f * 100
+    erb :"users/result"
   else
     @card = advance_card(params[:card_id])
     erb :gameplay
