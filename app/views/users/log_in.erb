@@ -1,5 +1,9 @@
-<form action='/sessions/new' method='post'>
-  <input type='text' name='email' placeholder='Email'>
-  <input type='password' name='password' placeholder='Password'>
+<h2>Please, log in to keep playing and learning!</h2>
+
+<h3 class="error_msg"> <%=@errors if @errors%> </h3>
+
+<form action='/sessions' method='post'>
+  <label>Email <input type='text' name='email' placeholder='Email'> </label>
+  <label>Password <input type='password' name='password' placeholder='Password'> </label>
   <input type='submit' name='Submit'>
 </form>

@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    normalize.css removes cross-browser differences in defaults, e.g.,
-    differences in how form elements appear between Firefox and IE
-    See: http://necolas.github.com/normalize.css/
-  -->
   <link rel="stylesheet" href="/css/normalize.css">
-  <!--
-    application.css is where you put your styles
-  -->
   <link rel="stylesheet" href="/css/application.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
-  <title></title>
+  <title>Fundex!</title>
 </head>
 <body>
-  <a href="/sessions/new">Login</a>
-  <a href="/rounds">View Previous Rounds</a>
+  <header>
+    <%if session[:user_id]%>
+      <!-- Having a link next to a button looked weird, so this became a button too -->
+      <form action="/rounds" method="get">
+        <input type="submit" name="rounds" value="View Previous Rounds">
+      </form>
+      <!-- Sends an immediate delete request -->
+      <form action="/sessions" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="logout" value="Logout">
+      </form>
+    <%else%>
+      <a href="/sessions/new">Login</a>
+      <a href="/users/new">Sign Up</a>
+    <%end%>
+  </header>
+
   <div class="container">
+    <h1><a href="/">FUNDEX</a></h1>
     <%= yield %>
   </div>
 </body>
