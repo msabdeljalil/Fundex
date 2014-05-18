@@ -17,7 +17,6 @@ helpers do
   end
 
   def check_answer(user_answer, card)
-    p "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", user_answer
     if user_answer.downcase == card.answer.downcase
       add_guess(card, user_answer, true, session[:round_id])
     else

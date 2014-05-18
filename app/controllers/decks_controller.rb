@@ -27,10 +27,20 @@ post '/decks/:deck_id/cards/:card_id' do
   if deck_complete?(params[:card_id], @deck)
     calculate_results(@round)
     clear_round()
-    erb :"users/result"
+    if request.xhr?
+      content_type :json
+      erb :"users/result".to_json
+    else
+      erb :"users/result"
+    end
   else
     print_correctness(@card)
     @card = advance_card(params[:card_id])
-    erb :gameplay
+    if request.xhr?
+      content_type :json
+      return {key1:"#{@card.question}"}.to_json
+    else
+      erb :gameplay
+    end
   end
 end

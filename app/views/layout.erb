@@ -3,14 +3,16 @@
 <head>
   <link rel="stylesheet" href="/css/normalize.css">
   <link rel="stylesheet" href="/css/application.css">
+  <link rel="stylesheet" href="/css/sass-bootstrap.min.css">
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/sass-bootstrap.min.js"></script>
   <script src="/js/application.js"></script>
 
   <title>Fundex!</title>
 </head>
 <body>
-  <header>
+  <nav>
     <%if session[:user_id]%>
       <!-- Having a link next to a button looked weird, so this became a button too -->
       <form action="/rounds" method="get">
@@ -26,7 +28,7 @@
       <a href="/sessions/new">Login</a>
       <a href="/users/new">Sign Up</a>
     <%end%>
-  </header>
+  </nav>
 
   <div class="container">
     <h1><a href="/">FUNDEX</a></h1>
