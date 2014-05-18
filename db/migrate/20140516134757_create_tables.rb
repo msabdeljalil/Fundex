@@ -27,7 +27,7 @@ class CreateTables < ActiveRecord::Migration
 
     create_table :guesses do |t|
       t.string :user_input
-      t.integer :correctness
+      t.boolean :correctness
       t.integer :round_id
       t.integer :card_id
       t.timestamps

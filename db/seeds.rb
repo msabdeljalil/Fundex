@@ -1,11 +1,11 @@
 latin =     Deck.create(name: "latin")
 titles =    Deck.create(name: "titles")
 countries = Deck.create(name: "countries")
-bs =        Deck.create(name: "bs")
+10.times { Card.create( question: Faker::Address.country, answer: Faker::Address.country, deck_id: 1)}
+
 
 10.times { Card.create( question: Faker::Lorem.word, answer: Faker::Lorem.word, deck_id: 6)}
 10.times { Card.create( question: Faker::Name.title, answer: Faker::Name.title, deck_id: titles.id)}
-10.times { Card.create( question: Faker::Address.country, answer: Faker::Address.country, deck_id: countries.id)}
 10.times { Card.create( question: Faker::Company.bs, answer: Faker::Company.bs, deck_id: bs.id)}
 
 User.all.each { |user| user.decks.push(bs, latin, countries, titles)}

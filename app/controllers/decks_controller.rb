@@ -22,17 +22,15 @@ get '/decks/:deck_id/cards/:card_id' do
 end
 
 post '/decks/:deck_id/cards/:card_id' do
-  @deck = Deck.find_by_id(params[:deck_id])
-  @card = Card.find_by_id(params[:card_id])
-  @round = Round.find_by_id(session[:round_id])
-  check_answer(params[:answer],  @card)
+  find_deck_card_round(params[:deck_id], params[:card_id])
+  check_answer(params[:answer], @card)
   if deck_complete?(params[:card_id], @deck)
     calculate_results(@round)
     clear_round()
     erb :"users/result"
   else
+    print_correctness(@card)
     @card = advance_card(params[:card_id])
     erb :gameplay
   end
 end
-
