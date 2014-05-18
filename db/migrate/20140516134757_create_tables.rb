@@ -13,6 +13,9 @@ class CreateTables < ActiveRecord::Migration
     create_table :rounds do |t|
       t.integer :user_id
       t.integer :deck_id
+      t.integer :total_guesses #Milan added
+      t.integer :total_questions #Milan added
+      t.integer :score #Milan added
       t.timestamps
     end
 

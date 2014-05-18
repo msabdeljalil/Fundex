@@ -1,10 +1,14 @@
 get '/sessions/new' do
-  erb :'users/log_in'
+  if session[:user_id]
+    redirect '/'
+  else
+    erb :'users/log_in'
+  end
 end
 
 post '/sessions' do
-  @user = User.find_by_email(params[:email])
-  if @user && @user.password == params[:password]
+  @user = User.authenticate(params[:email], params[:password])
+  if @user
     session[:user_id] = @user.id
     redirect '/'
   else
@@ -16,7 +20,7 @@ end
 get '/users/new' do
   # Is there a way to get the 'login / sign up' buttons to disapear when we go here?
   if session[:user_id]
-    redirect '/rounds'
+    redirect '/'
   else
     erb :'users/sign_up'
   end

@@ -9,16 +9,14 @@ get '/decks' do
   erb :"decks/list"
 end
 
-get '/rounds' do
-  "Well, rounds are a little difficult to write now.."
-end
-
 get '/decks/:deck_id' do
   @deck = Deck.find_by_id(params[:deck_id])
   erb :"decks/view_deck"
 end
 
 get '/decks/:deck_id/cards/:card_id' do
+  @round = Round.create(deck_id: params[:deck_id], user_id: session[:user_id])
+  session[:round_id] = @round.id
   @card = Card.find(params[:card_id])
   erb :gameplay
 end
@@ -26,27 +24,29 @@ end
 post '/decks/:deck_id/cards/:card_id' do
   @deck = Deck.find_by_id(params[:deck_id])
   @card = Card.find_by_id(params[:card_id])
-
-  if params[:answer] == @card.answer
-    @card.guesses << Guess.create(
-      user_input: params[:answer],
-      correctness: 1,
-      round_id: 1 #session[:round_id]
-      )
+  @round = Round.find_by_id(session[:round_id])
+  check_answer(params[:answer],  @card)
+  if deck_complete?(params[:card_id], @deck)
+    @correct_answers = @round.guesses.where(correctness: 1).count
+    @total_guesses = @round.guesses.count
+    @percent_score = @correct_answers.to_f / @total_guesses.to_f * 100
+    erb :"users/result"
   else
-    @card.guesses << Guess.create(
-      user_input: params[:answer],
-      correctness: 0,
-      round_id: 1 #session[:round_id]
-      )
-  end
-
-  if params[:card_id].to_i >= @deck.cards.length
-    redirect '/rounds/session[:round_id]'
-  else
-    @card = Card.find(params[:card_id].to_i + 1)
+    @card = advance_card(params[:card_id])
     erb :gameplay
-  # redirect "/decks/#{params[:deck_id]}/cards/#{params[:card_id].to_i+1}"
   end
 end
+
+
+# Iterate over round's guesses
+# where correctness == 1, incrememnet counter
+# @round = Round.find_by_id(session[:round_id])
+# @round.guesses.each do |guess|
+
+#   if guess.correctness == 1
+
+
+# @correct_answers = @round.guesses.where(correctness: 1).count
+# @total_questions = @round.guesses.count
+# @percent_score = @correct_answers / @total_questions
 
