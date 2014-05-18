@@ -27,26 +27,12 @@ post '/decks/:deck_id/cards/:card_id' do
   @round = Round.find_by_id(session[:round_id])
   check_answer(params[:answer],  @card)
   if deck_complete?(params[:card_id], @deck)
-    @correct_answers = @round.guesses.where(correctness: 1).count
-    @total_guesses = @round.guesses.count
-    @percent_score = @correct_answers.to_f / @total_guesses.to_f * 100
+    calculate_results(@round)
+    clear_round()
     erb :"users/result"
   else
     @card = advance_card(params[:card_id])
     erb :gameplay
   end
 end
-
-
-# Iterate over round's guesses
-# where correctness == 1, incrememnet counter
-# @round = Round.find_by_id(session[:round_id])
-# @round.guesses.each do |guess|
-
-#   if guess.correctness == 1
-
-
-# @correct_answers = @round.guesses.where(correctness: 1).count
-# @total_questions = @round.guesses.count
-# @percent_score = @correct_answers / @total_questions
 

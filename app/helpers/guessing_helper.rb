@@ -24,4 +24,15 @@ helpers do
     end
   end
 
+  def calculate_results(round)
+    @correct_answers = round.guesses.where(correctness: 1).count
+    @total_guesses = round.guesses.count
+    @percent_score = @correct_answers.to_f / @total_guesses.to_f * 100
+    return @correct_answers, @total_guesses, @percent_score
+  end
+
+  def clear_round()
+    session.delete(:round_id)
+  end
+
 end
