@@ -1,6 +1,6 @@
 <p> <% if @previous_answer%> Your previous answer was <%=@previous_answer%> </p> <%end%>
-<h3>Question: <%= @card.question %></h3>
-<form id="user_answer" method="post" action="/decks/<%= @card.deck.id %>/cards/<%= @card.id %>">
-  <label>Answer: <input type="text" name="answer"></label><br>
-  <input type="submit" value="Submit">
+<h3 id="question">Question: <%= @card.question %></h3>
+<form id="user_submit" method="post" action="/decks/<%= @card.deck.id %>/cards/<%= @card.id %>">
+  <label>Answer: <input id="user_answer"type="text" name="answer"></label><br>
+  <input id="submit" type="submit" value="Submit">
 </form><br>
