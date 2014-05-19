@@ -18,6 +18,7 @@ gem 'rake'
 gem 'shotgun'
 
 gem 'bcrypt-ruby'
+gem 'json'
 
 group :test, :development do
   gem "pry"

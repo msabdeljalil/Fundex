@@ -22,31 +22,27 @@ get '/decks/:deck_id/cards/:card_id' do
 end
 
 post '/decks/:deck_id/cards/:card_id' do
-  @deck = Deck.find_by_id(params[:deck_id])
-  @card = Card.find_by_id(params[:card_id])
-  @round = Round.find_by_id(session[:round_id])
-  check_answer(params[:answer],  @card)
+  find_deck_card_round(params[:deck_id], params[:card_id])
+  check_answer(params[:answer], @card)
   if deck_complete?(params[:card_id], @deck)
-    @correct_answers = @round.guesses.where(correctness: 1).count
-    @total_guesses = @round.guesses.count
-    @percent_score = @correct_answers.to_f / @total_guesses.to_f * 100
-    erb :"users/result"
+    calculate_results(@round)
+    clear_round()
+    if request.xhr?
+      content_type :json
+      erb :"users/result".to_json
+    else
+      erb :"users/result"
+    end
   else
+    print_correctness(@card)
     @card = advance_card(params[:card_id])
-    erb :gameplay
+    if request.xhr?
+      content_type :json
+      return erb(:gameplay, layout: false).to_json
+      # I have no idea how the fuck to parse this shit.
+      # return {:key1 => "question"}.to_json
+    else
+      erb :gameplay
+    end
   end
 end
-
-
-# Iterate over round's guesses
-# where correctness == 1, incrememnet counter
-# @round = Round.find_by_id(session[:round_id])
-# @round.guesses.each do |guess|
-
-#   if guess.correctness == 1
-
-
-# @correct_answers = @round.guesses.where(correctness: 1).count
-# @total_questions = @round.guesses.count
-# @percent_score = @correct_answers / @total_questions
-
