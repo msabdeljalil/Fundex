@@ -38,7 +38,9 @@ post '/decks/:deck_id/cards/:card_id' do
     @card = advance_card(params[:card_id])
     if request.xhr?
       content_type :json
-      return {key1:"#{@card.question}"}.to_json
+      return erb(:gameplay, layout: false).to_json
+      # I have no idea how the fuck to parse this shit.
+      # return {:key1 => "question"}.to_json
     else
       erb :gameplay
     end

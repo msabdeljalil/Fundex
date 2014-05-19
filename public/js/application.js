@@ -13,15 +13,11 @@ $(document).ready(function() {
             type:'POST',
             url: url,
             success: function(serverResponse, status, jqXHR){
-                console.log(serverResponse);
-                // $("p").css( "border", "9px solid red" );
-                data = jQuery.parseJSON(serverResponse);
-                console.log(status);
-                // $('body').append(serverResponse)
-                // console.log(serverResponse)
+                $("p").css( "border", "9px solid red" );
+                // data = $.parseJSON(serverResponse);
+                $("#gameplay").replaceWith(serverResponse)
             },
-        }).always(function() {alert( "success" ); });
-
+        })
     }); // SUBMIT catcher
 }); // Document Ready
 
